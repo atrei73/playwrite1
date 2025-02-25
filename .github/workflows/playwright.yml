@@ -28,3 +28,14 @@ jobs:
 
       - name: Run Playwright script
         run: node 45.js
+
+      # Опционально: Загрузка артефактов (если скрипт создает отчеты или скриншоты)
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: |
+            playwright-report/  # Если используется встроенный отчет Playwright
+            test-results/        # Если скрипт сохраняет результаты в эту папку
+          retention-days: 5
