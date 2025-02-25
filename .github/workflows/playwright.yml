@@ -23,4 +23,4 @@ jobs:
           npx playwright install --with-deps
 
       - name: Run Playwright script
-        run: node 45.js
+        run: node index.js
