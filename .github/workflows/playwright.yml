@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Run Playwright Script
 
 on:
   push:
@@ -9,26 +9,22 @@ on:
       - main
 
 jobs:
-  test:
+  run-playwright:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npx playwright install --with-deps
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests on BrowserStack
-        run: npx playwright test --config=playwright.config.js
-        env:
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      - name: Run Playwright script
+        run: node 45.js
