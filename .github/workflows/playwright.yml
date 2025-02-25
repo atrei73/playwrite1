@@ -11,6 +11,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Загружаем весь репозиторий
+
+      - name: Debug working directory
+        run: |
+          pwd
+          ls -la
+
+      - name: Move to correct directory
+        run: cd .github/workflows
+        working-directory: .github/workflows
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -21,6 +32,8 @@ jobs:
         run: |
           npm install
           npx playwright install --with-deps
+        working-directory: .github/workflows
 
       - name: Run Playwright script
         run: node index.js
+        working-directory: .github/workflows
