@@ -1,7 +1,7 @@
-name: Run Playwright Script
+name: Run Playwright Script with PM2
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Ручной запуск
 
 jobs:
   test:
@@ -13,22 +13,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Debug working directory
-        run: |
-          echo "Текущая директория:"
-          pwd
-          echo "Файлы в текущей директории:"
-          ls -la
-
-      - name: Debug all files
-        run: |
-          echo "Список всех файлов в репозитории:"
-          find . -type f
-
-      - name: Test proxy connection
-        run: |
-          curl -x s2.thisproxy.works:2017 -U sparkly_avocado_1:TYLeGIsEuTur -I http://osdon.ru/ || echo "Proxy failed!"
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -37,13 +21,15 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          npm install -g pm2  # Устанавливаем PM2 глобально
           npx playwright install --with-deps
         working-directory: .github/workflows
 
-      - name: Run Playwright script
+      - name: Run Playwright script with PM2
         run: |
-          while true; do
-            node index.js
-            sleep 3  # Задержка 3 секунды
-          done
+          pm2 start index.js --name "playwright-script" --restart-delay 3000
         working-directory: .github/workflows
+
+      - name: Display PM2 status
+        run: |
+          pm2 status
