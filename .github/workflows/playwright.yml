@@ -25,6 +25,10 @@ jobs:
           echo "Список всех файлов в репозитории:"
           find . -type f
 
+      - name: Test proxy connection
+        run: |
+          curl -x s2.thisproxy.works:2017 -U sparkly_avocado_1:TYLeGIsEuTur -I http://osdon.ru/ || echo "Proxy failed!"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
