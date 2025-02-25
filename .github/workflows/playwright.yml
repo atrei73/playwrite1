@@ -42,7 +42,9 @@ jobs:
 
       - name: Run Playwright script in infinite loop with delay
         run: |
+          echo "Starting infinite loop..."
           while true; do
+            echo "Running Playwright script..."
             node index.js  # Запуск скрипта
             sleep 3         # Задержка 3 секунды перед следующим запуском
           done
