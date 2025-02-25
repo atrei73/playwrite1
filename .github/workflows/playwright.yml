@@ -20,6 +20,11 @@ jobs:
           echo "Файлы в текущей директории:"
           ls -la
 
+      - name: Debug all files
+        run: |
+          echo "Список всех файлов в репозитории:"
+          find . -type f
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
