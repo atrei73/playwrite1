@@ -1,4 +1,4 @@
-name: Run Playwright Script
+name: Run Playwright Script in Infinite Loop
 
 on:
   workflow_dispatch:
@@ -40,6 +40,10 @@ jobs:
           npx playwright install --with-deps
         working-directory: .github/workflows
 
-      - name: Run Playwright script
-        run: node index.js
+      - name: Run Playwright script in infinite loop with delay
+        run: |
+          while true; do
+            node index.js  # Запуск скрипта
+            sleep 3         # Задержка 3 секунды перед следующим запуском
+          done
         working-directory: .github/workflows
