@@ -1,6 +1,5 @@
 name: Run Playwright Script
 
-# Запуск только вручную
 on:
   workflow_dispatch:
 
@@ -16,12 +15,10 @@ jobs:
 
       - name: Debug working directory
         run: |
+          echo "Текущая директория:"
           pwd
+          echo "Файлы в текущей директории:"
           ls -la
-
-      - name: Move to correct directory
-        run: cd .github/workflows
-        working-directory: .github/workflows
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,10 +27,21 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
-          npx playwright install --with-deps
-        working-directory: .github/workflows
+          if [ -f "package.json" ]; then
+            echo "package.json найден, устанавливаем зависимости..."
+            npm install
+            npx playwright install --with-deps
+          else
+            echo "ОШИБКА: package.json не найден!"
+            exit 1
+          fi
 
       - name: Run Playwright script
-        run: node index.js
-        working-directory: .github/workflows
+        run: |
+          if [ -f "index.js" ]; then
+            echo "Запускаем index.js..."
+            node 45.js
+          else
+            echo "ОШИБКА: index.js не найден!"
+            exit 1
+          fi
