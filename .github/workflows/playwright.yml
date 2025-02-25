@@ -40,7 +40,7 @@ jobs:
         run: |
           if [ -f "index.js" ]; then
             echo "Запускаем index.js..."
-            node 45.js
+            node index.js
           else
             echo "ОШИБКА: index.js не найден!"
             exit 1
