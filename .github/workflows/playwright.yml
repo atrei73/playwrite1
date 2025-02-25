@@ -32,21 +32,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [ -f "package.json" ]; then
-            echo "package.json найден, устанавливаем зависимости..."
-            npm install
-            npx playwright install --with-deps
-          else
-            echo "ОШИБКА: package.json не найден!"
-            exit 1
-          fi
+          npm install
+          npx playwright install --with-deps
+        working-directory: .github/workflows
 
       - name: Run Playwright script
-        run: |
-          if [ -f "index.js" ]; then
-            echo "Запускаем index.js..."
-            node index.js
-          else
-            echo "ОШИБКА: index.js не найден!"
-            exit 1
-          fi
+        run: node index.js
+        working-directory: .github/workflows
