@@ -1,7 +1,6 @@
 name: Run Playwright Script
 
 on:
-  workflow_dispatch:  # Ручной запуск
   schedule:
     - cron: '*/2 * * * *'  # Запускать каждые 2 минут
 
