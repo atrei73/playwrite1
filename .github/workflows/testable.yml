@@ -1,14 +1,1 @@
-name: Run Testable.io Test
 
-on:
-  schedule:
-    - cron: '*/1 * * * *'  # Запуск каждые 1 минут
-
-jobs:
-  run_test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Testable.io Test
-        run: |
-          curl -X POST "https://api.testable.io/tests/19388/run" \
-            -H "Authorization: Bearer rdlnhgetopagestlsthyctfvqygpfennbniawn"
